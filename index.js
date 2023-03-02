@@ -299,6 +299,258 @@ SELECT * FROM r;
   knex.destroy();
 }
 
+async function where() {
+  //   const data = await knex('users').where('id', 1);
+  // //select * from "users" where "id" = ?
+
+  //const data = await knex('users2')
+  //   .where({
+  //     name: 'Tom',
+  //     age: 7,
+  //   });
+  // //select * from "users2" where "name" = ? and "age" = ?
+
+  // const data = await knex('users')
+  //   .where('id', 1)
+  //   .orWhere({ votes: 100, user: 'knex' })
+  //   //select * from "users" where "id" = ? or ("votes" = ? and "user" = ?)
+
+  // const data = await knex('users')
+  //   .where('id', 1)
+  //   .orWhere({ votes: 100 })
+  //   .orWhere({ user: 'knex' });
+  // //select * from "users" where "id" = ? or ("votes" = ?) or ("user" = ?)
+
+  // const data = await knex('users')
+  //   .where('id', 1)
+  //   .orWhere('votes', 100)
+  //   .orWhere('user', 'knex');
+  // //select * from "users" where "id" = ? or "votes" = ? or "user" = ?
+
+  // const data = await knex('users2')
+  //   .where((builder) =>
+  //     builder.whereIn('id', [1, 11, 15]).whereNotIn('id', [17, 19])
+  //   )
+  //   .andWhere(function () {
+  //     this.where('id', '>', 10);
+  //   });
+  // //select * from "users2" where ("id" in (?, ?, ?) and "id" not in (?, ?)) and ("id" > ?)
+
+  //   const data = await knex('users2')
+  //     .where((qb) => {
+  //       qb.where('id', 1).orWhere('id', '>', 10);
+  //     })
+  //     .orWhere({ name: 'Tester' });
+  // //или
+  // const data = await knex('users2')
+  //   .where(function () {
+  //     this.where('id', 1).orWhere('id', '>', 10);
+  //   })
+  //   .orWhere({ name: 'Tester' });
+  // //select * from "users2" where ("id" = ? or "id" > ?) or ("name" = ?)
+
+  // const data = await knex('users2').where('name', 'like', '%ic%');
+  // //select * from "users2" where "name" like ?
+
+  //   const subquery = knex('users')
+  //     .where('votes', '>', 100)
+  //     .andWhere('status', 'active')
+  //     .orWhere('name', 'John')
+  //     .select('id');
+  //   const data = await knex('accounts').where('id', 'in', subquery);
+  // //или
+  // const data = await knex('accounts')
+  //   .where('id', 'in', (qb) =>
+  //     qb
+  //       .select()
+  //       .from('users')
+  //       .where('votes', '>', 100)
+  //       .andWhere('status', 'active')
+  //       .orWhere('name', 'John')
+  //       .select('id')
+  //   );
+  // //select * from "accounts" where "id" in (select "id" from "users" where "votes" > ? and "status" = ? or "name" = ?)
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function whereNot() {
+  // const data = await knex('users').whereNot('id', 1);
+  // //select * from "users" where not "id" = ?
+
+  // const data = await knex('users').whereNot({
+  //   first_name: 'Test',
+  //   last_name: 'User',
+  // });
+  // //select * from "users" where not "first_name" = ? and not "last_name" = ?
+
+  // const data = await knex('users')
+  //   .whereNot(function () {
+  //     this.where('id', 1).orWhereNot('id', '>', 10);
+  //   })
+  //   .orWhereNot({ name: 'Tester' });
+  //  // или
+  // const data = await knex('users')
+  //   .whereNot((qb) => {
+  //     qb.where('id', 1).orWhereNot('id', '>', 10);
+  //   })
+  //   .orWhereNot({ name: 'Tester' });
+  // //select * from "users" where not ("id" = ? or not "id" > ?) or not "name" = ?
+
+  // const data = await knex('users').whereNot('votes', '>', 100);
+  // //select * from "users" where not "votes" > ?
+
+  // const subquery = knex('users')
+  //   .whereNot('votes', '>', 100)
+  //   .andWhere('status', 'active')
+  //   .orWhere('name', 'John');
+  // const data = await knex('accounts').where('id', 'not in', subquery);
+  //select * from "accounts" where "id" not in (select * from "users" where not "votes" > ? and "status" = ? or "name" = ?)
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function whereIn() {
+  //Shorthand for .where('id', 'in', arr)
+
+  // const data = await knex('users')
+  //   .whereIn('id', [1, 2, 3])
+  //   .orWhereIn('id', [4, 5, 6])
+  // //select * from "users" where "id" in (?, ?, ?) or "id" in (?, ?, ?)
+
+  // const data = await knex('users').whereIn('account_id', function () {
+  //   this.select('id').from('accounts');
+  // });
+  // // или
+  // const data = await knex('users').whereIn('account_id', (qb) => {
+  //   qb.select('id').from('accounts');
+  // });
+  // // или
+  // const subquery = knex.select('id').from('accounts');
+  // const data = await knex('users').whereIn('account_id', subquery);
+  // //select * from "users" where "account_id" in (select "id" from "accounts")
+
+  // const data = await knex('users').whereIn(
+  //   ['account_id', 'email'],
+  //   [
+  //     [3, 'test3@example.com'],
+  //     [4, 'test4@example.com'],
+  //   ]
+  // );
+  // //select * from "users" where ("account_id", "email") in ((?, ?), (?, ?))
+
+  // const data = await knex('users').whereIn(
+  //   ['account_id', 'email'],
+  //   knex.select('id', 'email').from('accounts')
+  // );
+  // //select * from "users" where ("account_id", "email") in (select "id", "email" from "accounts")
+
+  // const data = await knex('users').whereNotIn('id', [1, 2, 3]);
+  // //select * from "users" where "id" not in (?, ?, ?)
+
+  // const data = await knex('users')
+  //   .where('name', 'like', '%Test%')
+  //   .orWhereNotIn('id', [1, 2, 3]);
+  // //select * from "users" where "name" like ? or "id" not in (?, ?, ?)
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function whereNull() {
+  // const data = await knex('users').whereNull('updated_at');
+  // //select * from "users" where "updated_at" is null
+
+  const data = await knex('users').whereNotNull('created_at');
+  //select * from "users" where "created_at" is not null
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function whereExists() {
+  // const data = await knex('users').whereExists(function () {
+  //   this.select('*')
+  //     .from('accounts')
+  //     .whereRaw('users.account_id = accounts.id');
+  // });
+  // // или
+  // const data = await knex('users')
+  //   .whereExists(
+  //     knex
+  //       .select('*')
+  //       .from('accounts')
+  //       .whereRaw('users.account_id = accounts.id')
+  //   )
+  //   // //select * from "users" where exists (select * from "accounts" where users.account_id = accounts.id)
+
+  // const data = await knex('users').whereNotExists(function () {
+  //   this.select('*')
+  //     .from('accounts')
+  //     .whereRaw('users.account_id = accounts.id');
+  // });
+  // // или
+  // const data = await knex('users').whereNotExists(
+  //   knex.select('*').from('accounts').whereRaw('users.account_id = accounts.id')
+  // );
+  // //select * from "users" where not exists (select * from "accounts" where users.account_id = accounts.id)
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function whereBetween() {
+  // const data = await knex('users').whereBetween('votes', [1, 100]);
+  // //select * from "users" where "votes" between ? and ?
+
+  const data = await knex('users').whereNotBetween('votes', [1, 100]);
+  // //select * from "users" where "votes" not between ? and ?
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function whereRaw() {
+  // const data = await knex('users').whereRaw('id = ?', [1]);
+  // //select * from "users" where id = ?
+
+  const data = await knex('users').whereRaw('users.id = 1');
+  //select * from "users" where users.id = 1
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function whereLike() {
+  //с учетом регистра
+
+  // const data = await knex('users').whereLike('name', '%ric%');
+  // //select * from "users" where "name" like ?
+
+  // const data = await knex('users')
+  //   .whereLike('email', '%mail%')
+  //   .andWhereLike('email', '%.com')
+  //   .orWhereLike('email', '%name%');
+  // //select * from "users" where "email" like ? and "email" like ? or "email" like ?
+
+  //без учета регистра
+
+  // const data = await knex('users2').whereILike('name', '%ric%');
+  // //select * from "users2" where "name" ilike ?
+
+  const data = await knex('users')
+    .whereILike('email', '%MAIL%')
+    .andWhereILike('email', '%.COM')
+    .orWhereILike('email', '%NAME%')
+    .toSQL().sql;
+  //select * from "users" where "email" ilike ? and "email" ilike ? or "email" ilike ?
+
+  console.log(data);
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -307,7 +559,15 @@ SELECT * FROM r;
 //start();
 //raw();
 //with_();
-withRecursive();
+//withRecursive();
+//where();
+//whereNot();
+//whereIn();
+//whereNull();
+//whereExists();
+//whereBetween();
+//whereRaw();
+whereLike();
 
 // knex('users')
 //   .select('login')
