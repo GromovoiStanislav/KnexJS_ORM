@@ -652,6 +652,107 @@ async function json() {
   knex.destroy();
 }
 
+async function join() {
+  // const data = await knex('users')
+  //   .join('contacts', 'users.id', '=', 'contacts.user_id')
+  //   .select('users.id', 'contacts.phone');
+  // или
+  // const data = await knex('users')
+  //   .join('contacts', 'users.id', 'contacts.user_id')
+  //   .select('users.id', 'contacts.phone');
+  //   //select "users"."id", "contacts"."phone" from "users" inner join "contacts" on "users"."id" = "contacts"."user_id"
+
+  // const data = await knex('users').join('accounts', function () {
+  //   this.on('accounts.id', '=', 'users.account_id')
+  //   .orOn('accounts.owner_id','=','users.id');
+  // });
+  // // или
+  // const data = await knex('users').join('accounts', function () {
+  //   this.on('accounts.id', '=', 'users.account_id');
+  //   this.orOn('accounts.owner_id', '=', 'users.id');
+  // });
+  // //select * from "users" inner join "accounts" on "accounts"."id" = "users"."account_id" or "accounts"."owner_id" = "users"."id"
+
+  // const data = await knex('users').join('accounts', function () {
+  //   this.on(function () {
+  //     this.on('accounts.id', '=', 'users.account_id');
+  //     this.orOn('accounts.owner_id', '=', 'users.id');
+  //   });
+  // });
+  // //select * from "users" inner join "accounts" on ("accounts"."id" = "users"."account_id" or "accounts"."owner_id" = "users"."id")
+
+  // const data = await knex('users').join('accounts', {
+  //   'accounts.id': 'users.account_id',
+  // });
+  // //select * from "users" inner join "accounts" on "accounts"."id" = "users"."account_id"
+
+  // const data = await knex('users')
+  //   .join('accounts', 'accounts.type', knex.raw('?', ['admin']))
+  //   //select * from "users" inner join "accounts" on "accounts"."type" = ?
+
+  // const data = await knex('users').join('accounts', {
+  //   'accounts.type': 'admin',
+  // });
+  // //select * from "users" inner join "accounts" on "accounts"."type" = "admin"
+
+  //const data = await knex.from('users').innerJoin('accounts','users.id','accounts.user_id');
+  //select * from "users" inner join "accounts" on "users"."id" = "accounts"."user_id"
+
+  // const data = await knex.table('users').innerJoin('accounts', 'users.id', '=', 'accounts.user_id');
+  // //select * from "users" inner join "accounts" on "users"."id" = "accounts"."user_id"
+
+  // const data = await knex('users').innerJoin('accounts',  (qb) => {
+  //   qb.on('accounts.id', '=', 'users.account_id')
+  //   .orOn('accounts.owner_id','=','users.id');
+  // });
+  // //select * from "users" inner join "accounts" on "accounts"."id" = "users"."account_id" or "accounts"."owner_id" = "users"."id"
+
+  // const data = await knex('users').leftJoin('accounts', 'users.id', 'accounts.user_id');
+  // //select * from "users" left join "accounts" on "users"."id" = "accounts"."user_id"
+
+  // const data = await knex('users').leftJoin('accounts', (qb) => {
+  //   qb.on('accounts.id', '=', 'users.account_id')
+  //   .orOn('accounts.owner_id','=','users.id');
+  // });
+  // //select * from "users" left join "accounts" on "accounts"."id" = "users"."account_id" or "accounts"."owner_id" = "users"."id"
+
+  // const data = await knex('users').leftOuterJoin('accounts', 'users.id', 'accounts.user_id');
+  //   //select * from "users" left outer join "accounts" on "users"."id" = "accounts"."user_id"
+
+  // const data = await knex('users').rightJoin('accounts', 'users.id', 'accounts.user_id');
+  // //select * from "users" right join "accounts" on "users"."id" = "accounts"."user_id"
+
+  // const data = await knex('users').rightJoin('accounts', (qd) => {
+  //   qd.on('accounts.id', '=', 'users.account_id')
+  //   .orOn('accounts.owner_id','=','users.id');
+  // });
+  // //select * from "users" right join "accounts" on "accounts"."id" = "users"."account_id" or "accounts"."owner_id" = "users"."id"
+
+  // const data = await knex('users').rightOuterJoin('accounts', 'users.id', 'accounts.user_id');
+  // //select * from "users" right outer join "accounts" on "users"."id" = "accounts"."user_id"
+
+  // const data = await knex('users').fullOuterJoin('accounts','users.id','accounts.user_id');
+  // //select * from "users" full outer join "accounts" on "users"."id" = "accounts"."user_id"
+
+  // const data = await knex('users').fullOuterJoin('accounts', (qb) => {
+  //   qb.on('accounts.id', '=', 'users.account_id');
+  //   qb.orOn('accounts.owner_id', '=', 'users.id');
+  // });
+  // //select * from "users" full outer join "accounts" on "accounts"."id" = "users"."account_id" or "accounts"."owner_id" = "users"."id"
+
+  // const data = await knex('users').crossJoin('accounts');
+  // //select * from "users" cross join "accounts"
+
+  //const data = await knex('users').joinRaw('natural left join blogs');
+  // //select * from "users" natural left join blogs
+
+  // const data = await knex('users').join(knex.raw('blogs on users.id = blogs.user_id'));
+  // //select * from "users" inner join blogs on users.id = blogs.user_id
+
+  console.log(data); //.toSQL().sql
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -669,7 +770,8 @@ async function json() {
 //whereBetween();
 //whereRaw();
 //whereLike();
-json();
+//json();
+join();
 
 // knex('users')
 //   .select('login')
