@@ -89,6 +89,12 @@ async function createTable() {
   //   table.timestamps();
   // });
 
+  // await knex.schema.alterTable('users2', (table) => {
+  //   table.dropColumn('name');
+  //   table.string('first_name');
+  //   table.string('last_name');
+  // });
+
   //await knex.schema.createTableLike('new_users', 'users2');
 
   // await knex.schema.createTableLike('new_users', 'users2', (table) => {
@@ -543,9 +549,104 @@ async function whereLike() {
   const data = await knex('users')
     .whereILike('email', '%MAIL%')
     .andWhereILike('email', '%.COM')
-    .orWhereILike('email', '%NAME%')
-    .toSQL().sql;
+    .orWhereILike('email', '%NAME%');
   //select * from "users" where "email" ilike ? and "email" ilike ? or "email" ilike ?
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function json() {
+  // await knex.schema.alterTable('users2', (table) => {
+  //   table.jsonb('json_col');
+  // });
+
+  // const users = await knex('users2');
+  // for await (user of users) {
+  //   await knex('users2')
+  //     .where({ id: user.id })
+  //     .update({
+  //       json_col: { id: user.id, name: user.name, age: user.age },
+  //     });
+  // }
+
+  // const data = await knex('users2').jsonExtract(
+  //   'json_col',
+  //   '$.name',
+  //   'accountName'
+  // );
+  //[{ accountName: 'Ricky' },...]
+
+  // const data = await knex('users2').jsonExtract([
+  //   ['json_col', '$.name', 'accountName'],
+  //   ['json_col', '$.age', 'accountAge'],
+  // ]);
+  // //[{ accountName: 'Ricky', accountAge: 40 },...]
+
+  // const data = await knex('users2').jsonRemove(
+  //   'json_col',
+  //   '$.name',
+  //   'colWithRemove'
+  // );
+  // //[{ colWithRemove: { id: 5, age: 40 } },...]
+
+  // const data = await knex('users2').jsonInsert(
+  //   'json_col',
+  //   '$.value',
+  //   10,
+  //   'newValueCol'
+  // );
+  // //[{ newValueCol: { id: 5, age: 40, name: 'Ricky', value: 10 } },...]
+
+  // const data = await knex('users2').jsonSet(
+  //   'json_col',
+  //   '$.age',
+  //   1323,
+  //   'newAgeCol'
+  // );
+  // //[{ newAgeCol: { id: 5, age: 1323, name: 'Ricky' } },...]
+
+  // const data = await knex('users2').jsonExtract([
+  //   [knex.jsonSet('json_col', '$.age', 1234), '$', 'ageModified'],
+  //   [knex.jsonRemove('json_col', '$.name'), '$', 'withoutName'],
+  //   [knex.jsonInsert('json_col', '$.value', 10), '$', 'insertValue'],
+  // ]);
+  // // [{
+  // //     ageModified: { id: 5, age: 1234, name: 'Ricky' },
+  // //     withoutName: { id: 5, age: 40 },
+  // //     insertValue: { id: 5, age: 40, name: 'Ricky', value: 10 }
+  // //   },...]
+
+  // const data = await knex('users2').whereJsonObject('json_col', {
+  //   id: 5,
+  //   age: 40,
+  //   name: 'Ricky',
+  // });
+
+  //const data = await knex('users2').whereJsonPath('json_col', '$.age', '>', 18);
+  //const data = await knex('users2').whereJsonPath('json_col', '$.age', '=', 7);
+
+  // const data = await knex('users2').whereJsonSupersetOf('json_col', {
+  //   age: 7,
+  // });
+  // const data = await knex('users2').whereJsonSupersetOf('json_col', {
+  //   age: 7,
+  //   name: 'Sean',
+  // });
+
+  // const data = await knex('users2').whereJsonSubsetOf('json_col', {
+  //   id: 8,
+  //   age: 7,
+  //   name: 'Sean',
+  //   sport: 'foot',
+  //   book: 'fantasy',
+  // });
+  // //[{
+  // //   id: 8,
+  // //   name: 'Sean',
+  // //   age: 7,
+  // //   json_col: { id: 8, age: 7, name: 'Sean', sport: 'foot' }
+  // // }]
 
   console.log(data);
   knex.destroy();
@@ -567,7 +668,8 @@ async function whereLike() {
 //whereExists();
 //whereBetween();
 //whereRaw();
-whereLike();
+//whereLike();
+json();
 
 // knex('users')
 //   .select('login')
