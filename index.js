@@ -782,6 +782,56 @@ async function union() {
   knex.destroy();
 }
 
+async function crud() {
+  //   const data = await knex('books').insert({ title: 'Slaughterhouse Five' }, ['id', 'title']);
+  // //insert into "books" ("title") values ('Slaughterhouse Five') returning "id", "title"
+
+  //   const data = await knex('coords').insert([{ x: 20 }, { y: 30 }, { x: 10, y: 20 }]);
+  // //insert into "coords" ("x", "y") values (20, DEFAULT), (DEFAULT, 30), (10, 20)
+  // //если в настройках подключения установить useNullAsDefault: true
+  // //insert into "coords" ("x", "y") values (20, NULL), (NULL, 30), (10, 20)
+
+  // const data = await knex
+  //   .insert([{ title: 'Great Gatsby' }, { title: 'Fahrenheit 451' }], ['id'])
+  //   .into('books');
+  // //insert into "books" ("title") values ('Great Gatsby'), ('Fahrenheit 451') returning "id"
+
+  // const data = await knex('tableName').insert({
+  //     email: 'ignore@example.com',
+  //     name: 'John Doe',
+  //     active: true,
+  //   })
+  //   // ignore only on email conflict and active is true.
+  //   .onConflict(knex.raw('(email) where active')).ignore();
+  // //insert into "tableName" ("active", "email", "name") values (true, 'ignore@example.com', 'John Doe') on conflict (email) where active do nothing
+
+  // const data = await knex('tableName').insert({
+  //     email: 'ignore@example.com',
+  //     name: 'John Doe',
+  //   }).onConflict('email').ignore();
+  //   //insert into "tableName" ("email", "name") values ('ignore@example.com', 'John Doe') on conflict ("email") do nothing
+
+  // const data = await knex('tableName')
+  //   .insert({
+  //     email: 'ignore@example.com',
+  //     name: 'John Doe',
+  //   })
+  //   .onConflict('email').merge();
+  // //insert into "tableName" ("email", "name") values ('ignore@example.com', 'John Doe') on conflict ("email") do update set "email" = excluded."email", "name" = excluded."name"
+
+  //   const data = await knex('tableName')
+  //     .insert([
+  //       { email: 'john@example.com', name: 'John Doe' },
+  //       { email: 'jane@example.com', name: 'Jane Doe' },
+  //       { email: 'alex@example.com', name: 'Alex Doe' },
+  //     ])
+  //     .onConflict('email').merge();
+  // //insert into "tableName" ("email", "name") values ('john@example.com', 'John Doe'), ('jane@example.com', 'Jane Doe'), ('alex@example.com', 'Alex Doe') on conflict ("email") do update set "email" = excluded."email", "name" = excluded."name"
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -801,7 +851,8 @@ async function union() {
 //whereLike();
 //json();
 //join();
-union();
+//union();
+crud();
 
 // knex('users')
 //   .select('login')
