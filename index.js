@@ -770,7 +770,14 @@ async function union() {
   //   );
   //   //select * from "users" where "last_name" is null union select * from users where first_name is null union select * from users where email is null
 
-  //unionAll тоже самое
+  //unionAll и intersect тоже самое
+
+  const data = await knex('users')
+    .whereNull('last_name')
+    .intersect(function () {
+      this.select('*').from('users').whereNull('first_name');
+    })
+    .toString();
 
   console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
