@@ -753,6 +753,29 @@ async function join() {
   knex.destroy();
 }
 
+async function union() {
+  // const data = await knex('users').whereNull('last_name')
+  //   .union((qb) => {
+  //     qb.select('*').from('users').whereNull('first_name');
+  //   });
+  // // или
+  // const data = await knex('users').whereNull('last_name')
+  //   .union([knex('users').whereNull('first_name')]);
+  // //select * from "users" where "last_name" is null union select * from "users" where "first_name" is null
+
+  // const data = await knex('users').whereNull('last_name')
+  //   .union(
+  //     knex.raw('select * from users where first_name is null'),
+  //     knex.raw('select * from users where email is null')
+  //   );
+  //   //select * from "users" where "last_name" is null union select * from users where first_name is null union select * from users where email is null
+
+  //unionAll тоже самое
+
+  console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -771,7 +794,8 @@ async function join() {
 //whereRaw();
 //whereLike();
 //json();
-join();
+//join();
+union();
 
 // knex('users')
 //   .select('login')
