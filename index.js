@@ -828,6 +828,86 @@ async function crud() {
   //     .onConflict('email').merge();
   // //insert into "tableName" ("email", "name") values ('john@example.com', 'John Doe'), ('jane@example.com', 'Jane Doe'), ('alex@example.com', 'Alex Doe') on conflict ("email") do update set "email" = excluded."email", "name" = excluded."name"
 
+  // const timestamp = Date.now();
+  // const data = await knex('tableName')
+  //   .insert({
+  //     email: 'ignore@example.com',
+  //     name: 'John Doe',
+  //     created_at: timestamp,
+  //     updated_at: timestamp,
+  //   }).onConflict('email').merge(['email', 'name', 'updated_at']);
+  // //insert into "tableName" ("created_at", "email", "name", "updated_at") values (1678090547780, 'ignore@example.com', 'John Doe', 1678090547780)
+  // //on conflict ("email") do update set "email" = excluded."email", "name" = excluded."name", "updated_at" = excluded."updated_at"
+
+  // const timestamp = Date.now();
+  // const data = await knex('tableName')
+  //   .insert({
+  //     email: 'ignore@example.com',
+  //     name: 'John Doe',
+  //     created_at: timestamp,
+  //     updated_at: timestamp,
+  //   })
+  //   .onConflict('email')
+  //   .merge({ name: 'John Doe The Second' });
+  // //insert into "tableName" ("created_at", "email", "name", "updated_at") values (1678090827168, 'ignore@example.com', 'John Doe', 1678090827168) on conflict
+  // //("email") do update set "name" = 'John Doe The Second'
+
+  // const timestamp = Date.now();
+  // const data = await knex('tableName')
+  //   .insert({
+  //     email: 'ignore@example.com',
+  //     name: 'John Doe',
+  //     created_at: timestamp,
+  //     updated_at: timestamp,
+  //   })
+  //   .onConflict('email').merge({
+  //     name: 'John Doe',
+  //     updated_at: timestamp,
+  //   }).where('updated_at', '<', timestamp);
+  //   //insert into "tableName" ("created_at", "email", "name", "updated_at") values (1678091026728, 'ignore@example.com', 'John Doe', 1678091026728) on conflict ("email") do update set "name" = 'John Doe',"updated_at" = 1678091026728 where "updated_at" < 1678091026728
+
+  // const data = await knex('books').where('published_date', '<', 2000).update({
+  //   status: 'archived',
+  //   thisKeyIsSkipped: undefined,
+  // });
+  // //update "books" set "status" = 'archived' where "published_date" < 2000
+
+  // const data = await knex('books').where({ id: 42 }).update(
+  //   {
+  //     title: 'The Guide to the Galaxy',
+  //   },
+  //   ['id', 'title']
+  // );
+  // //update "books" set "title" = 'The Guide to the Galaxy' where "id" = 42 returning "id", "title"
+
+  // const data = await knex('accounts').where('activated', false).del();
+  // //delete from "accounts" where "activated" = false
+
+  // const data = await knex('accounts').where('activated', false).del(['id']);
+  // //elete from "accounts" where "activated" = false returning "id"
+
+  //   const data = await knex('accounts')
+  //     .where('activated', false)
+  //     .join('users', 'accounts.id', 'users.account_id')
+  //     .del();
+  // //delete from "accounts" using "users" where "activated" = false and "accounts"."id" = "users"."account_id"
+
+  // const data = await knex('accounts')
+  //   .where('activated', false)
+  //   .using('users')
+  //   .whereRaw('accounts.id = users.account_id')
+  //   .del();
+  //   //delete from "accounts" using "users" where "activated" = false and accounts.id = users.account_id
+
+  // const data = await knex('books').returning('id')
+  //   .insert({ title: 'Slaughterhouse Five' });
+  // //insert into "books" ("title") values ('Slaughterhouse Five') returning "id"
+  // // Returns [ { id: 1 } ]
+
+  // const data = await knex('books').returning(['id', 'title'])
+  //   .insert({ title: 'Slaughterhouse Five' });
+  //   // Returns [ { id: 1, title: 'Slaughterhouse Five' } ]
+
   https: console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
