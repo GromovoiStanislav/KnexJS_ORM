@@ -1110,6 +1110,24 @@ async function increment_decrement() {
   knex.destroy();
 }
 
+async function distinct() {
+  // const data = await knex('users2').distinct();
+  // //select distinct * from "users2"
+
+  // const data = await knex('users2').distinct('age');
+  // //select distinct "age" from "users2"
+  // //[ { age: 40 }, { age: 35 }, { age: 7 }, { age: 20 }, { age: 8 } ]
+
+  // const data = await knex('users2').distinct('name', 'age');
+  // //select distinct "name", "age" from "users2"
+
+  const data = await knex('users2').distinctOn('age'); //PostgreSQL only
+  //select distinct on ("age") * from "users2"
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -1139,7 +1157,8 @@ async function increment_decrement() {
 //first();
 //pluck();
 //truncate();
-increment_decrement();
+//increment_decrement();
+distinct();
 
 // knex('users')
 //   .select('login')
