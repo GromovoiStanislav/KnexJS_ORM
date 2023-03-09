@@ -130,9 +130,11 @@ async function insert() {
 
 async function select() {
   console.log(await knex('users2').select());
+
   console.log(
     await knex('users2').select('age', 'name').orderBy('age', 'desc')
   );
+
   console.log(
     await knex('users2').select('name', 'age').where('age', '>', '18')
   );
@@ -912,6 +914,146 @@ async function crud() {
   knex.destroy();
 }
 
+async function count() {
+  // const data = await knex('users').count();
+  //   //или
+  //  .count({ count: '*' })
+  //   //или
+  //   .count(knex.raw('??', ['active']));
+  // //select count(*) from "users"
+  // //[{ count: '4' }] //строка!!
+  // .first();// limit 1
+  // //{ count: '4' } //строка!!
+
+  // const data = await knex('users')
+  //   .count('active as a')
+  //   //или
+  //   .count('active', { as: 'a' })
+  //   //или
+  //   .count({ a: 'active' });
+  // //select count("active") as "a" from "users2"
+
+  // const data = await knex('users').count({ a: 'active', v: 'valid' });
+  // //select count("active") as "a", count("valid") as "v" from "users"
+
+  // const data = await knex('users').countDistinct('active');
+  // //select count(distinct "active") from "users"
+
+  // const data = await knex('users').countDistinct({ a: 'age', v: 'name' });
+  // //select count(distinct "active") as "a", count(distinct "valid") as "v" from "users"
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function min() {
+  // const data = await knex('users2')
+  // .min('age')
+  // //или
+  // .min(knex.raw('??', ['age']))
+  // //select min("age") from "users2"
+  // //[ { min: 7 } ]
+  //.first();// limit 1
+  // //{ min: 7 }
+
+  //const data = await knex('users2')
+  // .min('age', { as: 'a' })
+  // //или
+  // .min('age as a')
+  // //или
+  // .min({ a: 'age' });
+  //select min("age") as "a" from "users2"
+
+  // const data = await knex('users2').min({ a: 'age', n: 'name' });
+  // //select min("age") as "a", min("name") as "n" from "users2"
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function max() {
+  // const data = await knex('users2')
+  // .max('age')
+  // //или
+  // .max(knex.raw('??', ['age']))
+  // //select max("age") from "users2"
+  // //[ { max: 40 } ]
+  //.first();// limit 1
+  // //{ max: 40 }
+
+  //const data = await knex('users2')
+  // .max('age', { as: 'a' })
+  // //или
+  // .max('age as a')
+  // //или
+  // .max({ a: 'age' });
+  //select max("age") as "a" from "users2"
+
+  // const data = await knex('users2').max({ a: 'age', n: 'name' });
+  // //select max("age") as "a", max("name") as "n" from "users2"
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function sum() {
+  // const data = await knex('users2')
+  //   .sum('age');
+  //   //или
+  //   .sum(knex.raw('??', ['age']));
+  // //select sum("age") from "users2"
+  // //[ { sum: '117' } ] //строка !!
+  //.first();// limit 1
+  // //{ sum: 117' }//строка !!
+
+  // const data = await knex('users2')
+  // .sum('age', { as: 'a' });
+  // //или
+  // .sum('age as a');
+  // //или
+  // .sum({ a: 'age' });
+  // //select sum("age") as "a" from "users2"
+
+  //const data = await knex('users2').sum({ a: 'age', o: 'orders' });
+  // //select sum("age") as "a", sum("orders") as "o" from "users2"
+
+  // const data = await knex('users2').sumDistinct('age');
+  // //select sum(distinct "age") from "users2"
+  // //[ { sum: '110' } ]
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function avg() {
+  // const data = await knex('users2')
+  //   .avg('age')
+  //   //или
+  //   .avg(knex.raw('??', ['age']))
+  //   //select avg("age") from "users2"
+  //   //[ { savg: '19.5000000000000000' } ] //строка !!
+  //   .first(); // limit 1
+  // //{ avg: '19.5000000000000000' } //строка !!
+
+  // const data = await knex('users2')
+  //   .avg('age', { as: 'a' });
+  //   //или
+  //   .avg('age as a');
+  //   //или
+  //   .avg({ a: 'age' });
+  // //select avg("age") as "a" from "users2"
+
+  // const data = await knex('users2').avg({ a: 'age', o: 'orders' });
+  // //select avg("age") as "a", avg("orders") as "o" from "users2"
+
+  // const data = await knex('users2').avgDistinct('age as a');
+  // //select avg(distinct "age") as "a" from "users2"
+  // //[ { avg: '22.0000000000000000' } ]
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -932,7 +1074,12 @@ async function crud() {
 //json();
 //join();
 //union();
-crud();
+//crud();
+//count();
+//min();
+//max();
+//sum();
+avg();
 
 // knex('users')
 //   .select('login')
