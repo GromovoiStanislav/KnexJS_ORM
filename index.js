@@ -1054,6 +1054,62 @@ async function avg() {
   knex.destroy();
 }
 
+async function first() {
+  // const data = await knex('users2').first('id', 'name').toString();
+  // //или
+  // const data = await knex('users2').select('id', 'name').first();
+  // //select "id", "name" from "users2" limit 1
+
+  const data = await knex('users2').select('id');
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function pluck() {
+  // const data = await knex('users2').select('id');
+  // //[ { id: 5 }, { id: 6 }, { id: 9 }, { id: 4 }, { id: 7 }, { id: 8 } ]
+
+  //const data = await knex('users2').pluck('id');
+  //[ 5, 6, 9, 4, 7, 8 ]
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function truncate() {
+  //const data = await knex('accounts').truncate();
+  // //truncate "accounts" restart identity
+
+  // const data = await knex('accounts').del().toString();
+  // //delete from "accounts"
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function increment_decrement() {
+  // const data = await knex('users2').where('age', '=', 40).increment('age', 1);
+  // //update "users2" set "age" = "age" + 1 where "age" = 40
+
+  // const data = await knex('users2').where('age', '=', 41).decrement('age', 1);
+  // //update "users2" set "age" = "age" - 1 where "age" = 41
+
+  // const data = await knex('accounts').where('id', '=', 1).increment({
+  //   balance: 10,
+  //   times: 1,
+  // });
+  // //update "accounts" set "balance" = "balance" + 10, "times" = "times" + 1 where "id" = 1
+
+  // const data = await knex('accounts').where('id', '=', 1).decrement({
+  //   balance: 50,
+  // });
+  // //update "accounts" set "balance" = "balance" - 50 where "id" = 1
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -1079,7 +1135,11 @@ async function avg() {
 //min();
 //max();
 //sum();
-avg();
+//avg();
+//first();
+//pluck();
+//truncate();
+increment_decrement();
 
 // knex('users')
 //   .select('login')
