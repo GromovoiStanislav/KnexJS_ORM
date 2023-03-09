@@ -1081,7 +1081,7 @@ async function truncate() {
   //const data = await knex('accounts').truncate();
   // //truncate "accounts" restart identity
 
-  // const data = await knex('accounts').del().toString();
+  // const data = await knex('accounts').del();
   // //delete from "accounts"
 
   https: console.log(data); //.toSQL().toNative().sql .toString();
@@ -1121,8 +1121,47 @@ async function distinct() {
   // const data = await knex('users2').distinct('name', 'age');
   // //select distinct "name", "age" from "users2"
 
-  const data = await knex('users2').distinctOn('age'); //PostgreSQL only
-  //select distinct on ("age") * from "users2"
+  // const data = await knex('users2').distinctOn('age'); //PostgreSQL only
+  // //select distinct on ("age") * from "users2"
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function orderBy() {
+  // const data = await knex('users2').orderBy('age');
+  // //select * from "users2" order by "age" desc
+
+  // const data = await knex('users2').orderBy('age', 'desc');
+  // //select * from "users2" order by "age" asc
+
+  // const data = await knex('users2').orderBy('age', 'desc', 'first');
+  // //select * from "users2" order by "age" desc nulls first
+
+  // const data = await knex('users2').orderBy([
+  //   'name',
+  //   { column: 'age', order: 'desc' },
+  // ]);
+  // //select * from "users2" order by "name" asc, "age" desc
+
+  // const data = await knex('users2').orderBy([
+  //   { column: 'name' },
+  //   { column: 'age', order: 'desc' },
+  // ]);
+  // //select * from "users2" order by "name" asc, "age" desc
+
+  // const data = await knex('users2').orderBy([
+  //   { column: 'name' },
+  //   { column: 'age', order: 'desc', nulls: 'last' },
+  // ]);
+  // //select * from "users2" order by "name" asc, "age" desc nulls last
+
+  // const data = await knex('users2')
+  //   .orderByRaw('age DESC NULLS LAST')
+  //   //select * from "users2" order by age DESC NULLS LAST;
+
+  // const data = await knex('users').orderByRaw('"isBanned" DESC').toString();
+  // //select * from "users" order by "isBanned" DESC
 
   https: console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
@@ -1158,7 +1197,8 @@ async function distinct() {
 //pluck();
 //truncate();
 //increment_decrement();
-distinct();
+//distinct();
+orderBy();
 
 // knex('users')
 //   .select('login')
