@@ -1196,6 +1196,23 @@ async function groupBy() {
   knex.destroy();
 }
 
+async function having() {
+  // const data = await knex('users2')
+  //   .select('age')
+  //   .groupBy('age')
+  //   .havingRaw('count(age) > ?', 1);
+  // //select "age" from "users2" group by "age" having count(age) >1
+
+  // const data = await knex('users2').groupBy('id').havingIn('id', [5, 3, 6, 17]);
+  // //select * from "users2" group by "id" having "id" in (5, 3, 6, 17)
+
+  // const data = await knex('users2').groupBy('id').havingNotIn('id', [5, 3, 6, 17]);
+  // //select * from "users2" group by "id" having "id" not in (5, 3, 6, 17)
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -1228,26 +1245,28 @@ async function groupBy() {
 //increment_decrement();
 //distinct();
 //orderBy();
-groupBy();
+//groupBy();
+having();
 
-// knex('users')
-//   .select('login')
-//   .select('email')
-//   .where('id', '1676430822622')
-//   .first()
-//   .then((users) => {
-//     console.log(users);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   })
-//   .finally(() => {
-//     knex.destroy();
-//   });
-
-// const usersQueryBuilder = knex('users').select('id');
-// usersQueryBuilder.select('login');
-// usersQueryBuilder.select('email');
-// usersQueryBuilder.then((users) => {
-//   console.log(users);
-// });
+async function interfaces() {
+  // knex('users')
+  //   .select('login')
+  //   .select('email')
+  //   .where('id', '1676430822622')
+  //   .first()
+  //   .then((users) => {
+  //     console.log(users);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  //   .finally(() => {
+  //     knex.destroy();
+  //   });
+  // const usersQueryBuilder = knex('users').select('id');
+  // usersQueryBuilder.select('login');
+  // usersQueryBuilder.select('email');
+  // usersQueryBuilder.then((users) => {
+  //   console.log(users);
+  // });
+}
