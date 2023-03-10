@@ -1167,6 +1167,35 @@ async function orderBy() {
   knex.destroy();
 }
 
+async function groupBy() {
+  // const data = await knex('users2').select('age').groupBy('age');
+  // //select "age" from "users2" group by "age"
+
+  // const data = await knex('users2').select('age').count().groupBy('age');
+  // //select "age", count(*) from "users2" group by "age"
+
+  // const data = await knex('users2')
+  //   .select('age', knex.raw('count(*) as c'))
+  //   .groupBy('age');
+  // //select "age", count(*) as c from "users2" group by "age"
+
+  // const data = await knex('users2')
+  //   .select('age', knex.raw('count(*)'))
+  //   .groupByRaw('ROLLUP (age)');
+  // //select "age", count(*) from "users2" group by ROLLUP (age)
+  // // [
+  // //   { age: null, count: '6' },!!!!
+  // //   { age: 40, count: '1' },
+  // //   { age: 35, count: '1' },
+  // //   { age: 7, count: '2' },
+  // //   { age: 20, count: '1' },
+  // //   { age: 8, count: '1' }
+  // // ]
+
+  https: console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -1198,7 +1227,8 @@ async function orderBy() {
 //truncate();
 //increment_decrement();
 //distinct();
-orderBy();
+//orderBy();
+groupBy();
 
 // knex('users')
 //   .select('login')
