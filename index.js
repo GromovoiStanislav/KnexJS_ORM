@@ -129,16 +129,108 @@ async function insert() {
 }
 
 async function select() {
-  console.log(await knex('users2').select());
+  // const data = await knex('users2');
+  // //или
+  // const data = await knex.select().from('users2');
+  // //или
+  // const data = await knex.select().table('users2');
+  // //или
+  // const data = await knex('users2').select('*');
+  // //или
+  // const data = await knex('users2').select();
+  // //select * from "users2"
 
-  console.log(
-    await knex('users2').select('age', 'name').orderBy('age', 'desc')
-  );
+  // const data = await knex('users2').select('id', 'age', 'name');
+  // //select "id", "age", "name" from "users2"
 
-  console.log(
-    await knex('users2').select('name', 'age').where('age', '>', '18')
-  );
+  //const data = await knex('users2').select(['id', 'name', 'age']);
+  //select "id", "name", "age" from "users2"
 
+  //const data = await knex('users').select('users.id');
+  // //select "users"."id" from "users"
+
+  // const data = await knex.select(knex.ref('id').as('i')).from('users');
+  // //select "id" as "i" from "users"
+
+  // const data = await knex('users').select('id as i');
+  // //или
+  // const data = await knex('users').select({ i: 'id' });
+  // //select "id" as "i" from "users"
+
+  // const data = await knex('users')
+  //   .select('id')
+  //   .select({
+  //     n: (qb) => {
+  //       qb.select(1);
+  //     },
+  //   });
+  //   // [
+  //   //   { id: '1676430822622', n: 1 },
+  //   //   { id: '1676430823116', n: 1 },
+  //   //   { id: '1676430823640', n: 1 },
+  //   //   { id: '1676430824161', n: 1 }
+  //   // ]
+
+  // const data = await knex('users')
+  //   .select('id')
+  //   .select({
+  //     status: (qb) => {
+  //       qb.select('status')
+  //         .from('accounts')
+  //         .whereRaw('users.account_id = accounts.id');
+  //     },
+  //   });
+  //   //select "id", (select "status" from "accounts" where users.account_id = accounts.id) as "status" from "users"
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function as() {
+  // const data = await knex('users').select({ i: 'id' });
+  // //select "id" as "i" from "users"
+
+  // const data = await knex.select().from((qb) => {
+  //   qb.select('login as name').from('users').groupBy('login').as('u');
+  // });
+  // //select * from (select "login" as "name" from "users" group by "login") as "u"
+
+  // const data = await knex('users')
+  //   .select('id')
+  //   .select((qb) => {
+  //     qb.select(1).as('n');
+  //   });
+  //   //select "id", (select 1) as "n" from "users"
+
+  // const data = await knex('users')
+  //   .select('id')
+  //   .select((qb) => {
+  //     qb.select('status')
+  //       .from('accounts')
+  //       .whereRaw('users.account_id = accounts.id')
+  //       .as('status');
+  //   });
+  //select "id", (select "status" from "accounts" where users.account_id = accounts.id) as "status" from "users"
+
+  console.log(data);
+  knex.destroy();
+}
+
+async function from() {
+  // const data = await knex.from('users');
+  // // или
+  // const data = await knex.select('*').from('users');
+  // //select * from "users"
+
+  // const data = await knex.select('id').from('users').toString();
+  // //select "id" from "users"
+
+  // const data = await knex
+  //   .select('id', 'name')
+  //   .fromRaw('(select * from "users" where "age" > ?) as u', '18')
+  // //select "id", "name" from (select * from "users" where "age" > '18') as u
+
+  console.log(data);
   knex.destroy();
 }
 
@@ -1209,6 +1301,12 @@ async function having() {
   // const data = await knex('users2').groupBy('id').havingNotIn('id', [5, 3, 6, 17]);
   // //select * from "users2" group by "id" having "id" not in (5, 3, 6, 17)
 
+  // const data = await knex('users2').groupBy('id').havingBetween('id', [5, 10])
+  // //select * from "users2" group by "id" having "id" between 5 and 10
+
+  // const data = await knex('users2').groupBy('id').havingNotBetween('id', [5, 10]);
+  // //select * from "users2" group by "id" having "id" not between 5 and 10
+
   https: console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
@@ -1216,6 +1314,8 @@ async function having() {
 //createTable()
 //insert();
 //select();
+//from();
+//as();
 //update();
 //del();
 //start();
