@@ -105,7 +105,7 @@ async function createTable() {
   //await knex.schema.dropTable('users2');
   //await knex.schema.dropTableIfExists('users2');
 
-  await knex.schema.createTable('users2', (table) => {
+  knex.schema.createTable('users2', (table) => {
     table.increments();
     table.string('name');
     table.integer('age');
@@ -115,16 +115,27 @@ async function createTable() {
 }
 
 async function insert() {
-  await knex('users2').insert({ name: 'John', age: 20 });
+  // const data = await knex('users2').insert({ name: 'John', age: 20 });
+  // //insert into "users2" ("age", "name") values (20, 'John')
 
-  await knex('users2').insert([
-    { name: 'Ricky', age: 40 },
-    { name: 'Mylyn', age: 35 },
-    { name: 'Ricmonde', age: 8 },
-    { name: 'Sean', age: 7 },
-    { name: 'Miggy', age: 7 },
-  ]);
+  // const data = await knex('users2').insert({ name: 'John', age: 20 }, ['id']);
+  // //insert into "users2" ("age", "name") values (20, 'John') returning "id"
 
+  // const data = await knex
+  //   .insert([{ title: 'Great Gatsby' }, { title: 'Fahrenheit 451' }], ['id'])
+  //   .into('books');
+  // //insert into "books" ("title") values ('Great Gatsby'), ('Fahrenheit 451') returning "id"
+
+  // await knex('users2')
+  //   .insert([
+  //     { name: 'Ricky', age: 40 },
+  //     { name: 'Mylyn', age: 35 },
+  //     { name: 'Ricmonde', age: 8 },
+  //     { name: 'Sean', age: 7 },
+  //     { name: 'Miggy', age: 7 },
+  //   ])
+
+  console.log(data); //.toString()
   knex.destroy();
 }
 
@@ -1339,7 +1350,7 @@ async function transacting() {
 }
 
 //createTable()
-//insert();
+insert();
 //select();
 //from();
 //as();
@@ -1374,7 +1385,7 @@ async function transacting() {
 //orderBy();
 //groupBy();
 //having();
-transacting();
+//transacting();
 
 async function interfaces() {
   // knex('users')
