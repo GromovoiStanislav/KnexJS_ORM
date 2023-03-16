@@ -1002,7 +1002,7 @@ async function crud() {
   //   .insert({ title: 'Slaughterhouse Five' });
   //   // Returns [ { id: 1, title: 'Slaughterhouse Five' } ]
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1034,7 +1034,7 @@ async function count() {
   // const data = await knex('users').countDistinct({ a: 'age', v: 'name' });
   // //select count(distinct "active") as "a", count(distinct "valid") as "v" from "users"
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1059,7 +1059,7 @@ async function min() {
   // const data = await knex('users2').min({ a: 'age', n: 'name' });
   // //select min("age") as "a", min("name") as "n" from "users2"
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1084,7 +1084,7 @@ async function max() {
   // const data = await knex('users2').max({ a: 'age', n: 'name' });
   // //select max("age") as "a", max("name") as "n" from "users2"
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1113,7 +1113,7 @@ async function sum() {
   // //select sum(distinct "age") from "users2"
   // //[ { sum: '110' } ]
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1142,7 +1142,7 @@ async function avg() {
   // //select avg(distinct "age") as "a" from "users2"
   // //[ { avg: '22.0000000000000000' } ]
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1154,7 +1154,7 @@ async function first() {
 
   const data = await knex('users2').select('id');
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1165,7 +1165,7 @@ async function pluck() {
   //const data = await knex('users2').pluck('id');
   //[ 5, 6, 9, 4, 7, 8 ]
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1176,7 +1176,7 @@ async function truncate() {
   // const data = await knex('accounts').del();
   // //delete from "accounts"
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1198,7 +1198,7 @@ async function increment_decrement() {
   // });
   // //update "accounts" set "balance" = "balance" - 50 where "id" = 1
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1213,10 +1213,33 @@ async function distinct() {
   // const data = await knex('users2').distinct('name', 'age');
   // //select distinct "name", "age" from "users2"
 
-  // const data = await knex('users2').distinctOn('age'); //PostgreSQL only
-  // //select distinct on ("age") * from "users2"
+  // const data = await knex('users2').select('id', 'name', 'age').distinct();
+  // //select distinct "id", "name", "age" from "users2"
+  // // [
+  // //   { id: 7, name: 'Ricmonde', age: 8 },
+  // //   { id: 9, name: 'Miggy', age: 7 },
+  // //   { id: 10, name: 'Вася', age: 26 },
+  // //   { id: 5, name: 'Ricky', age: 40 },
+  // //   { id: 6, name: 'Mylyn', age: 35 },
+  // //   { id: 12, name: 'Вася', age: 26 },
+  // //   { id: 4, name: 'John', age: 20 },
+  // //   { id: 11, name: 'Вася', age: 26 },
+  // //   { id: 13, name: 'Вася', age: 26 },
+  // //   { id: 8, name: 'Sean', age: 7 }
+  // // ]
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  // const data = await knex('users2').select('id', 'name', 'age').distinctOn('age'); //PostgreSQL only
+  // //select distinct on ("age") "id", "name", "age" from "users2"
+  // // [
+  // //   { id: 8, name: 'Sean', age: 7 },
+  // //   { id: 7, name: 'Ricmonde', age: 8 },
+  // //   { id: 4, name: 'John', age: 20 },
+  // //   { id: 11, name: 'Вася', age: 26 },
+  // //   { id: 6, name: 'Mylyn', age: 35 },
+  // //   { id: 5, name: 'Ricky', age: 40 }
+  // // ]
+
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1255,7 +1278,7 @@ async function orderBy() {
   // const data = await knex('users').orderByRaw('"isBanned" DESC').toString();
   // //select * from "users" order by "isBanned" DESC
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1284,7 +1307,7 @@ async function groupBy() {
   // //   { age: 8, count: '1' }
   // // ]
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
   knex.destroy();
 }
 
@@ -1307,7 +1330,11 @@ async function having() {
   // const data = await knex('users2').groupBy('id').havingNotBetween('id', [5, 10]);
   // //select * from "users2" group by "id" having "id" not between 5 and 10
 
-  https: console.log(data); //.toSQL().toNative().sql .toString();
+  console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
+async function transacting() {
   knex.destroy();
 }
 
@@ -1346,7 +1373,8 @@ async function having() {
 //distinct();
 //orderBy();
 //groupBy();
-having();
+//having();
+transacting();
 
 async function interfaces() {
   // knex('users')
