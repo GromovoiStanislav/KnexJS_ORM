@@ -1354,21 +1354,17 @@ async function transacting() {
 
   // 1й вариант:
   knex
-    .transaction(function (trx) {
+    .transaction((trx) => {
       return trx
         .insert({ name: 'Old Books' }, 'id')
         .into('catalogues')
-        .then(function (ids) {
+        .then((ids) => {
           books.forEach((book) => (book.catalogue_id = ids[0]));
           return trx('books').insert(books);
         });
     })
-    .then(function (inserts) {
-      console.log(inserts.length + ' new books saved.');
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+    .then((inserts) => console.log(inserts.length + ' new books saved.'))
+    .catch((error) => console.error(error));
 
   // 1й вариант async:
   try {
@@ -1390,24 +1386,20 @@ async function transacting() {
 
   // 2й вариант:
   knex
-    .transaction(function (trx) {
+    .transaction((trx) => {
       knex
         .insert({ name: 'Old Books' }, 'id')
         .into('catalogues')
         .transacting(trx)
-        .then(function (ids) {
+        .then((ids) => {
           books.forEach((book) => (book.catalogue_id = ids[0]));
           return knex('books').insert(books).transacting(trx);
         })
         .then(trx.commit)
         .catch(trx.rollback);
     })
-    .then(function (inserts) {
-      console.log(inserts.length + ' new books saved.');
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+    .then((inserts) => console.log(inserts.length + ' new books saved.'))
+    .catch((error) => console.error(error));
 
   // 2й вариант async:
   try {
@@ -1434,7 +1426,7 @@ async function transacting() {
 
   trx('catalogues')
     .insert({ name: 'Old Books' }, 'id')
-    .then(function (ids) {
+    .then((ids) => {
       books.forEach((book) => (book.catalogue_id = ids[0]));
       return trx('books').insert(books);
     })
@@ -1480,6 +1472,38 @@ async function transacting() {
   // result1 may or may not deep equal result2 depending on isolation level
 }
 
+async function transacting2() {
+  // knex
+  //   .transaction((trx) => {
+  //     knex('books')
+  //       .transacting(trx)
+  //       .insert({ name: 'Old Books' }, 'id')
+  //       .then((ids) => {
+  //         const id = ids[0];
+  //         return someExternalMethod(id, trx);
+  //       })
+  //       .then(trx.commit)
+  //       .catch(trx.rollback);
+  //   })
+  //   .then((resp) => console.log('Transaction complete.'))
+  //   .catch((err) => console.error(err));
+
+  await knex
+    .transaction(async (trx) => {
+      // const data = await knex('users').transacting(trx).forUpdate();
+      // //select * from "users" for update
+
+      const data = await knex('users').transacting(trx).forShare();
+      //select * from "users" for share //Для чтения!!!
+      console.log(data);
+    })
+    .then((resp) => console.log('Transaction complete.'))
+    .catch((err) => console.error('Transaction error.'));
+
+  //console.log(data); //.toSQL().toNative().sql .toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -1516,6 +1540,8 @@ async function transacting() {
 //orderBy();
 //groupBy();
 //having();
+//transacting();
+transacting2();
 
 async function interfaces() {
   // knex('users')
