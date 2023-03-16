@@ -118,7 +118,7 @@ async function insert() {
   // const data = await knex('users2').insert({ name: 'John', age: 20 });
   // //insert into "users2" ("age", "name") values (20, 'John')
 
-  // const data = await knex('users2').insert({ name: 'John', age: 20 }, ['id']);
+  // const data = await knex('users2').insert({ name: 'John', age: 20 }, 'id');
   // //insert into "users2" ("age", "name") values (20, 'John') returning "id"
 
   // const data = await knex
@@ -1346,11 +1346,142 @@ async function having() {
 }
 
 async function transacting() {
-  knex.destroy();
+  const books = [
+    { title: 'Canterbury Tales' },
+    { title: 'Moby Dick' },
+    { title: 'Hamlet' },
+  ];
+
+  // 1й вариант:
+  knex
+    .transaction(function (trx) {
+      return trx
+        .insert({ name: 'Old Books' }, 'id')
+        .into('catalogues')
+        .then(function (ids) {
+          books.forEach((book) => (book.catalogue_id = ids[0]));
+          return trx('books').insert(books);
+        });
+    })
+    .then(function (inserts) {
+      console.log(inserts.length + ' new books saved.');
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+  // 1й вариант async:
+  try {
+    await knex.transaction(async (trx) => {
+      const ids = await trx('catalogues').insert(
+        {
+          name: 'Old Books',
+        },
+        'id'
+      );
+
+      books.forEach((book) => (book.catalogue_id = ids[0]));
+      const inserts = await trx('books').insert(books);
+      console.log(inserts.length + ' new books saved.');
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  // 2й вариант:
+  knex
+    .transaction(function (trx) {
+      knex
+        .insert({ name: 'Old Books' }, 'id')
+        .into('catalogues')
+        .transacting(trx)
+        .then(function (ids) {
+          books.forEach((book) => (book.catalogue_id = ids[0]));
+          return knex('books').insert(books).transacting(trx);
+        })
+        .then(trx.commit)
+        .catch(trx.rollback);
+    })
+    .then(function (inserts) {
+      console.log(inserts.length + ' new books saved.');
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+  // 2й вариант async:
+  try {
+    await knex.transaction(async (trx) => {
+      const ids = await knex('catalogues')
+        .insert(
+          {
+            name: 'Old Books',
+          },
+          'id'
+        )
+        .transacting(trx);
+
+      books.forEach((book) => (book.catalogue_id = ids[0]));
+      await knex('books').insert(books).transacting(trx);
+      console.log(inserts.length + ' new books saved.');
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  // 3й вариант:
+  const trx = await knex.transaction();
+
+  trx('catalogues')
+    .insert({ name: 'Old Books' }, 'id')
+    .then(function (ids) {
+      books.forEach((book) => (book.catalogue_id = ids[0]));
+      return trx('books').insert(books);
+    })
+    .then(trx.commit)
+    .catch(trx.rollback);
+
+  // Проверка транзакция завершена или нет:
+  // const trx = await knex.transaction();
+  // trx.isCompleted(); // false
+  // await trx.commit();
+  // trx.rollback();
+  // trx.isCompleted(); // true
+
+  // 4й вариант (многоразовый)
+  // Does not start a transaction yet
+  const trxProvider = knex.transactionProvider();
+
+  // Starts a transaction
+  const trx_ = await trxProvider();
+  const ids = await trx('catalogues').insert({ name: 'Old Books' }, 'id');
+  books.forEach((book) => (book.catalogue_id = ids[0]));
+  await trx_('books').insert(books);
+
+  // Reuses same transaction
+  const sameTrx = await trxProvider();
+  const ids2 = await sameTrx('catalogues').insert({ name: 'New Books' }, 'id');
+  books.forEach((book) => (book.catalogue_id = ids2[0]));
+  await sameTrx('books').insert(books);
+
+  //commit() или rollback();
+  trxProvider.isCompleted(); // false;
+  await trxProvider.commit();
+  //await trxProvider.rollback();
+  trxProvider.isCompleted(); // true
+
+  //Уровни изоляции:
+  const isolationLevel = 'read committed'; //read uncommitted, repeatable read, serializable, snapshot (mssql only)
+  const _trx = await knex.transaction({ isolationLevel });
+  const result1 = await _trx(tableName).select();
+  await knex(tableName).insert({ id: 1, value: 1 });
+  const result2 = await _trx(tableName).select();
+  await _trx.commit();
+  // result1 may or may not deep equal result2 depending on isolation level
 }
 
 //createTable()
-insert();
+//insert();
 //select();
 //from();
 //as();
@@ -1385,7 +1516,6 @@ insert();
 //orderBy();
 //groupBy();
 //having();
-//transacting();
 
 async function interfaces() {
   // knex('users')
