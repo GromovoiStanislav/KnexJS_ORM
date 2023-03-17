@@ -1493,14 +1493,27 @@ async function transacting2() {
       // const data = await knex('users').transacting(trx).forUpdate();
       // //select * from "users" for update
 
-      const data = await knex('users').transacting(trx).forShare();
-      //select * from "users" for share //Для чтения!!!
+      // const data = await knex('users').transacting(trx).forShare();
+      // //select * from "users" for share //Для чтения!!!
+
+      // const data = await knex('users').transacting(trx).forNoKeyUpdate();
+      // //select * from "users" for no key update
+
+      // const data = await knex('users').transacting(trx).forKeyShare();
+      // //select * from "users" for key share
+
+      // const data = await knex('users').forUpdate().skipLocked();
+      // //select * from "users" for update skip locked //пропустить все заблокированные строки
+
+      // const data = await knex('users').forUpdate().noWait()
+      // //select * from "users" for update nowait //приведет к немедленному сбою запроса, если какие-либо выбранные строки в настоящее время заблокированы
+
       console.log(data);
     })
     .then((resp) => console.log('Transaction complete.'))
     .catch((err) => console.error('Transaction error.'));
 
-  //console.log(data); //.toSQL().toNative().sql .toString();
+  //.toString();
   knex.destroy();
 }
 
