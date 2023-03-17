@@ -1517,6 +1517,53 @@ async function transacting2() {
   knex.destroy();
 }
 
+async function rowNumber() {
+  // const data = await knex('users2').select('id', 'name', 'age')
+  // .rowNumber('alias_colum', 'age');
+  // //select "id", "name", "age", row_number() over (order by "age") as alias_colum from "users2"
+  // // [
+  // //   { id: 8, name: 'Sean', age: 7, alias_colum: '1' },
+  // //   { id: 9, name: 'Miggy', age: 7, alias_colum: '2' },
+  // //   { id: 7, name: 'Ricmonde', age: 8, alias_colum: '3' },
+  // //   { id: 4, name: 'John', age: 20, alias_colum: '4' },
+  // //   { id: 11, name: 'Вася', age: 26, alias_colum: '5' },
+  // //   { id: 13, name: 'Вася', age: 26, alias_colum: '6' },
+  // //   { id: 10, name: 'Вася', age: 26, alias_colum: '7' },
+  // //   { id: 12, name: 'Вася', age: 26, alias_colum: '8' },
+  // //   { id: 6, name: 'Mylyn', age: 35, alias_colum: '9' },
+  // //   { id: 5, name: 'Ricky', age: 40, alias_colum: '10' }
+  // // ]
+
+  // const data = await knex('users2').select('id', 'name', 'age')
+  // .rowNumber('alias_colum', ['name', 'age']);
+  // // select "id", "name", "age", row_number() over (order by "name", "age") as alias_colum from "users2"
+  // // [
+  // //   { id: 4, name: 'John', age: 20, alias_colum: '1' },
+  // //   { id: 9, name: 'Miggy', age: 7, alias_colum: '2' },
+  // //   { id: 6, name: 'Mylyn', age: 35, alias_colum: '3' },
+  // //   { id: 5, name: 'Ricky', age: 40, alias_colum: '4' },
+  // //   { id: 7, name: 'Ricmonde', age: 8, alias_colum: '5' },
+  // //   { id: 8, name: 'Sean', age: 7, alias_colum: '6' },
+  // //   { id: 10, name: 'Вася', age: 26, alias_colum: '7' },
+  // //   { id: 11, name: 'Вася', age: 26, alias_colum: '8' },
+  // //   { id: 12, name: 'Вася', age: 26, alias_colum: '9' },
+  // //   { id: 13, name: 'Вася', age: 26, alias_colum: '10' }
+  // // ]
+
+  // const data = await knex('users2').select('id', 'name', 'age')
+  // .rowNumber('alias_colum', knex.raw('order by ??', ['age']));
+  // //select "id", "name", "age", row_number() over (order by "age") as alias_colum from "users2"
+
+  // const data = await knex('users2').select('id', 'name', 'age')
+  //   .rowNumber('alias_name', (cb) => {
+  //     cb.orderBy('age');
+  //   });
+  // //select "id", "name", "age", row_number() over (order by "age") as alias_name from "users2"
+
+  console.log(data); //.toString();
+  knex.destroy();
+}
+
 //createTable()
 //insert();
 //select();
@@ -1554,7 +1601,8 @@ async function transacting2() {
 //groupBy();
 //having();
 //transacting();
-transacting2();
+//transacting2();
+rowNumber();
 
 async function interfaces() {
   // knex('users')
