@@ -401,9 +401,44 @@ VALUES (1, 6, 2),
 */
 };
 
+const select = async () => {
+  //Find all id's of products that have been sold
+  /*
+  SELECT DISTINCT(product_id)
+  FROM order_products
+  ORDER BY product_id;
+  */
+  // console.log(
+  //   await knex('order_products').distinct('product_id').orderBy('product_id')
+  // );
+
+  //Find products that haven't been sold yet
+  /*
+  SELECT product_id, title, description
+  FROM products
+  WHERE product_id NOT IN (SELECT DISTINCT(product_id)
+                         FROM order_products
+                         ORDER BY product_id);
+  */
+  // const subquery = knex('order_products').distinct('product_id');
+  // console.log(
+  //   await knex('products')
+  //     .select(['product_id', 'title', 'description'])
+  //     .whereNotIn('product_id', subquery)
+  // );
+
+  console.log(
+    await knex('products')
+      .select(['product_id', 'title', 'description'])
+      .whereNotIn('product_id', knex('order_products').distinct('product_id'))
+  );
+};
+
 const start = async () => {
-  await createTables();
-  await seed();
+  // await createTables();
+  // await seed();
+  await select();
+
   knex.destroy();
 
   //console.log(await knex('order_products'));
