@@ -425,6 +425,20 @@ const select = async () => {
       .select(['product_id', 'title', 'description'])
       .whereNotIn('product_id', knex('order_products').distinct('product_id'))
   );
+
+  //Find users that haven't placed an order yet
+  /*
+  SELECT telegram_id, full_name, username
+  FROM users
+  WHERE telegram_id NOT IN (SELECT DISTINCT(user_id)
+                          FROM orders
+                          ORDER BY user_id);
+  */
+  console.log(
+    await knex('users')
+      .select(['telegram_id', 'full_name', 'username'])
+      .whereNotIn('telegram_id', knex('orders').distinct('user_id'))
+  );
 };
 
 const start = async () => {
