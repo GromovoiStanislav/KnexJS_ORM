@@ -408,9 +408,9 @@ const select = async () => {
   FROM order_products
   ORDER BY product_id;
   */
-  // console.log(
-  //   await knex('order_products').distinct('product_id').orderBy('product_id')
-  // );
+  console.log(
+    await knex('order_products').distinct('product_id').orderBy('product_id')
+  );
 
   //Find products that haven't been sold yet
   /*
@@ -420,13 +420,6 @@ const select = async () => {
                          FROM order_products
                          ORDER BY product_id);
   */
-  // const subquery = knex('order_products').distinct('product_id');
-  // console.log(
-  //   await knex('products')
-  //     .select(['product_id', 'title', 'description'])
-  //     .whereNotIn('product_id', subquery)
-  // );
-
   console.log(
     await knex('products')
       .select(['product_id', 'title', 'description'])
